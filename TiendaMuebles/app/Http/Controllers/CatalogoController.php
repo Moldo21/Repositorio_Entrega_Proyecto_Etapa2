@@ -1,0 +1,2 @@
+<?php
+// para el futuro

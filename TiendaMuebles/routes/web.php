@@ -1,0 +1,62 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MuebleController;
+use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PreferenciasController;
+
+// Página Principal
+// Route::get('/', [PrincipalController::class, 'index'])->name('principal');
+
+// Login (Sesiones):
+Route::get('/', [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.store');
+Route::post('/logout', [LoginController::class, 'logout'])->name('login.logout');
+
+// Preferencias (Cookies)
+Route::get('/preferencias', [PreferenciasController::class, 'edit'])->name('preferencias.edit');
+Route::post('/preferencias', [PreferenciasController::class, 'update'])->name('preferencias.update');
+
+// Catálogo: categorías
+Route::get('/categorias', [CategoriasController::class, 'index'])->name('categorias.index');
+Route::get('/categoria/{id}', [CategoriasController::class, 'show'])->name('categorias.show');
+
+// Catálogo: muebles (listado + detalle)
+Route::get('/muebles', [MuebleController::class, 'index'])->name('muebles.index');
+Route::get('/mueble/{id}', [MuebleController::class, 'show'])->name('muebles.show');
+
+// Carrito:
+Route::get('/carrito', [CarritoController::class, 'show'])->name('carrito.show');
+Route::post('/carrito/insertar/{mueble}', [CarritoController::class, 'add'])->name('carrito.add');
+Route::post('/carrito/actualizar/{mueble}', [CarritoController::class, 'update'])->name('carrito.update');
+Route::post('/carrito/eliminar/{mueble}', [CarritoController::class, 'remove'])->name('carrito.remove');
+Route::post('/carrito/vaciar', [CarritoController::class, 'clear'])->name('carrito.clear');
+
+Route::post('/carrito/aumentar/{id}', [CarritoController::class, 'aumentar'])->name('carrito.aumentar');
+Route::post('/carrito/disminuir/{id}', [CarritoController::class, 'disminuir'])->name('carrito.disminuir');
+
+// Parte del Apartado 5 (pendiente)
+
+/*
+// Panel de Administración (Solo usuario rol ADMIN)
+Route::get('/admin', [AdministracionController::class, 'index'])->name('administracion');
+
+// Categorías (CRUD)
+Route::resource('categorias', CategoriasController::class);
+
+// Nombres generados:
+// categorias.index|create|store|show|edit|update|destroy
+// Productos (CRUD)
+
+Route::resource('productos', ProductosController::class);
+// Nombres generados:
+// productos.index|create|store|show|edit|update|destroy
+// Galería de Productos
+
+Route::post('productos/{mueble}/galeria', [ProductosGaleriaController::class,'store']) ->name('productos.galeria.store');// Subida múltiple
+Route::post('productos/{mueble}/galeria/{image}',[ProductosGaleriaController::class, 'destroy'])->name('productos.galeria.destroy'); // Borrar imagen
+Route::post('productos/{mueble}/galeria/{image}/principal',[ProductosGaleriaController::class, 'setMain'])->name('productos.galeria.principal'); // Establecer imagen principal
+
+*/
